@@ -1,4 +1,4 @@
-@model Web.Models.Proizvod
+@model Web.Models.Partner
 
 @{
     ViewData["Title"] = "Details";
@@ -7,7 +7,7 @@
 <h2>Detalji</h2>
 
 <div>
-    <h4>Proizvod</h4>
+    <h4>Partner</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,22 +17,16 @@
             @Html.DisplayFor(model => model.Naziv)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Opis)
+            @Html.DisplayNameFor(model => model.DatumKreiranja)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Opis)
+            @Html.DisplayFor(model => model.DatumKreiranja)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Vrijednost)
+            @Html.DisplayNameFor(model => model.Vrsta)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Vrijednost)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.RokTrajanja)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RokTrajanja)
+            @Html.DisplayFor(model => model.Vrsta.Naziv)
         </dd>
     </dl>
 </div>

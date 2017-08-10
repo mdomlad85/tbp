@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html >
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,13 +26,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Dokument" asp-action="Index" class="navbar-brand">Početna</a>
+                <a asp-area="" asp-controller="Dokument" asp-action="Index" class="navbar-brand">Obrada</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Dokument" asp-action="Index">Dokument</a></li>
-                    <li><a asp-area="" asp-controller="Proizvod" asp-action="Index">Proizvod</a></li>
-                    <li><a asp-area="" asp-controller="Zaposlenik" asp-action="Index">Zaposlenik</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Matični podaci <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Partner" asp-action="Index">Partner</a></li>
+                            <li><a asp-area="" asp-controller="Proizvod" asp-action="Index">Proizvod</a></li>
+                            <li><a asp-area="" asp-controller="Zaposlenik" asp-action="Index">Zaposlenik</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Šifrarnici <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="JedinicaMjere" asp-action="Index">Jedinica Mjere</a></li>
+                            <li><a asp-area="" asp-controller="StatusDokumenta" asp-action="Index">Status Dokumenta</a></li>
+                            <li><a asp-area="" asp-controller="VrstaDokumenta" asp-action="Index">Vrsta Dokumenta</a></li>
+                            <li><a asp-area="" asp-controller="VrstaPartnera" asp-action="Index">VrstaPartnera</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

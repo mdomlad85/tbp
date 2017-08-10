@@ -1,4 +1,4 @@
-@model Web.Models.Proizvod
+@model Web.Models.JedinicaMjere
 
 @{
     ViewData["Title"] = "Napravi";
@@ -8,7 +8,7 @@
 
 <form asp-action="Create">
     <div class="form-horizontal">
-        <h4>Proizvod</h4>
+        <h4>JedinicaMjere</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
@@ -23,20 +23,6 @@
             <div class="col-md-10">
                 <input asp-for="Opis" class="form-control" />
                 <span asp-validation-for="Opis" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Vrijednost" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Vrijednost" class="form-control" />
-                <span asp-validation-for="Vrijednost" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="RokTrajanja" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="RokTrajanja" class="form-control" />
-                <span asp-validation-for="RokTrajanja" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">

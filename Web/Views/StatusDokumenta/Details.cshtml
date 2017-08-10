@@ -1,0 +1,24 @@
+@model Web.Models.StatusDokumenta
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalji</h2>
+
+<div>
+    <h4>StatusDokumenta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Naziv)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Uredi</a> |
+    <a asp-action="Index">Povratak na popis</a>
+</div>

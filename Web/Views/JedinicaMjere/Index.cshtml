@@ -1,10 +1,10 @@
-@model IEnumerable<Web.Models.Proizvod>
+@model IEnumerable<Web.Models.JedinicaMjere>
 
 @{
-    ViewData["Title"] = "Proizvod";
+    ViewData["Title"] = "Jedinica Mjere";
 }
 
-<h2>Proizvod</h2>
+<h2>Jedinica Mjere</h2>
 
 <p>
     <a asp-action="Create">Napravi</a>
@@ -18,12 +18,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Opis)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Vrijednost)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RokTrajanja)
-                </th>
             <th></th>
         </tr>
     </thead>
@@ -35,12 +29,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Opis)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vrijednost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RokTrajanja)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |

@@ -1,10 +1,10 @@
-@model IEnumerable<Web.Models.Proizvod>
+@model IEnumerable<Web.Models.Partner>
 
 @{
-    ViewData["Title"] = "Proizvod";
+    ViewData["Title"] = "Partner";
 }
 
-<h2>Proizvod</h2>
+<h2>Partner</h2>
 
 <p>
     <a asp-action="Create">Napravi</a>
@@ -16,14 +16,11 @@
                     @Html.DisplayNameFor(model => model.Naziv)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Opis)
+                    @Html.DisplayNameFor(model => model.DatumKreiranja)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Vrijednost)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RokTrajanja)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vrsta)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -34,13 +31,10 @@
                 @Html.DisplayFor(modelItem => item.Naziv)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Opis)
+                @Html.DisplayFor(modelItem => item.DatumKreiranja)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Vrijednost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RokTrajanja)
+                @Html.DisplayFor(modelItem => item.Vrsta.Naziv)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
