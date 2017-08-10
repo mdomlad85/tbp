@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web.Models;
+using Web.ViewModels;
 
 namespace Web.Controllers
 {
@@ -41,13 +42,12 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            return View(zaposlenik);
+            return View(new ZaposlenikViewModel(zaposlenik, _context));
         }
 
         // GET: Zaposlenik/Create
         public IActionResult Create()
         {
-            ViewData["KontaktId"] = new SelectList(_context.Kontakt, "Id", "Naziv");
             return View();
         }
 
@@ -56,16 +56,19 @@ namespace Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Prezime,Ime,DatumRodjenja,KontaktId")] Zaposlenik zaposlenik)
+        public async Task<IActionResult> Create([
+            Bind("Id,Prezime,Ime,DatumRodjenja,Adresa,Email,Telefon")
+            ] ZaposlenikViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(zaposlenik);
+                viewModel.factoryZaposlenik();
+                _context.Add(viewModel.Zaposlenik);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["KontaktId"] = new SelectList(_context.Kontakt, "Id", "Naziv", zaposlenik.KontaktId);
-            return View(zaposlenik);
+
+            return View(viewModel);
         }
 
         // GET: Zaposlenik/Edit/5
@@ -76,13 +79,17 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var zaposlenik = await _context.Zaposlenik.SingleOrDefaultAsync(m => m.Id == id);
+            var zaposlenik = await _context
+                .Zaposlenik
+                .Include(m => m.Kontakt)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
             if (zaposlenik == null)
             {
                 return NotFound();
             }
-            ViewData["KontaktId"] = new SelectList(_context.Kontakt, "Id", "Naziv", zaposlenik.KontaktId);
-            return View(zaposlenik);
+            
+            return View(new ZaposlenikViewModel(zaposlenik, _context));
         }
 
         // POST: Zaposlenik/Edit/5
@@ -90,23 +97,33 @@ namespace Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Prezime,Ime,DatumRodjenja,KontaktId")] Zaposlenik zaposlenik)
+        public async Task<IActionResult> Edit(int id, [
+            Bind("Id,Prezime,Ime,DatumRodjenja,Adresa,Email,Telefon")
+            ] ZaposlenikViewModel viewModel)
         {
-            if (id != zaposlenik.Id)
+            if (id != viewModel.Id)
             {
                 return NotFound();
             }
+
+            viewModel.Zaposlenik = await _context.Zaposlenik.Include(m => m.Kontakt).SingleOrDefaultAsync(m => m.Id == id);
+            if (viewModel.Zaposlenik == null)
+            {
+                return NotFound();
+            }
+
+            viewModel.factoryZaposlenik();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(zaposlenik);
+                    _context.Update(viewModel.Zaposlenik);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ZaposlenikExists(zaposlenik.Id))
+                    if (!ZaposlenikExists(viewModel.Zaposlenik.Id))
                     {
                         return NotFound();
                     }
@@ -117,8 +134,8 @@ namespace Web.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["KontaktId"] = new SelectList(_context.Kontakt, "Id", "Naziv", zaposlenik.KontaktId);
-            return View(zaposlenik);
+
+            return View(viewModel);
         }
 
         // GET: Zaposlenik/Delete/5

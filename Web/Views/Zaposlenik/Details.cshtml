@@ -1,4 +1,4 @@
-@model Web.Models.Zaposlenik
+@model Web.ViewModels.ZaposlenikViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -29,10 +29,24 @@
             @Html.DisplayFor(model => model.DatumRodjenja)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Kontakt)
+            @Html.DisplayNameFor(model => model.Adresa)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Kontakt.Naziv)
+            @Html.DisplayFor(model => model.Adresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefon)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Telefon)
         </dd>
     </dl>
 </div>
