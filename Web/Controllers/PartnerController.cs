@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web.Models;
+using Web.ViewModels;
 
 namespace Web.Controllers
 {
@@ -35,6 +36,8 @@ namespace Web.Controllers
 
             var partner = await _context.Partner
                 .Include(p => p.Vrsta)
+                .Include(p => p.PartnerKontakt)
+                .Include("PartnerKontakt.Kontakt")
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (partner == null)
             {
@@ -76,7 +79,12 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var partner = await _context.Partner.SingleOrDefaultAsync(m => m.Id == id);
+            var partner = await _context.Partner
+                .Include(p => p.Vrsta)
+                .Include(p => p.PartnerKontakt)
+                .Include("PartnerKontakt.Kontakt")
+                .SingleOrDefaultAsync(m => m.Id == id);
+
             if (partner == null)
             {
                 return NotFound();
@@ -149,6 +157,30 @@ namespace Web.Controllers
             _context.Partner.Remove(partner);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult KontaktModalAction(int Id)
+        {
+            var viewModel = new KontaktViewModel(Id);
+            return PartialView("KontaktForma", viewModel);
+        }
+
+        public async Task<IActionResult> DodajKontakt([Bind("PartnerId,Naziv,Adresa,Email,Telefon")] KontaktViewModel viewModel)
+        {
+            if (ModelState.IsValid && (
+                viewModel.Adresa != null
+                || viewModel.Email != null
+                || viewModel.Telefon!= null
+                ))
+            {
+                viewModel.factoryKontakt();
+                _context.Add(viewModel.Kontakt);
+                await _context.SaveChangesAsync();
+                viewModel.factoryPartnerKontakt();
+                _context.Add(viewModel.PartnerKontakt);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Edit", new { id = viewModel.PartnerId });
         }
 
         private bool PartnerExists(int id)

@@ -29,15 +29,75 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+                <button class="btn btn-default contact" type="button">Dodaj kontakt</button>
             </div>
         </div>
     </div>
 </form>
 
+
+
+<h4>Kontak info</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Adresa
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Telefon
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PartnerKontakt)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kontakt.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kontakt.Adresa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kontakt.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kontakt.Telefon)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-controller="Kontakt" asp-route-id="@item.KontaktId"  asp-route-akcija="Edit">Obri&#353;i</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
 <div>
     <a asp-action="Index">Povratak na popis</a>
 </div>
 
+
+<div id="modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog"></div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(function () {
+            $(".contact").click(function () {
+                $("#modal-container").load("/Partner/KontaktModalAction/@Model.Id", function () {
+                    $("#modal-container").modal();
+                })
+            });
+        })
+</script>
 }

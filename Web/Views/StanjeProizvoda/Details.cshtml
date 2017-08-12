@@ -1,0 +1,48 @@
+@model Web.Models.StanjeProizvoda
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalji</h2>
+
+<div>
+    <h4>Stanje Proizvoda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaksimalnaKolicina)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaksimalnaKolicina)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MinimalnaKolicina)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MinimalnaKolicina)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stanje)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stanje)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JedinicaMjere)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JedinicaMjere.Naziv)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Proizvod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Proizvod.Naziv)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Uredi</a> |
+    <a asp-action="Index">Povratak na popis</a>
+</div>

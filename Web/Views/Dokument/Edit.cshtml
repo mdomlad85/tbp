@@ -13,20 +13,6 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Id" />
         <div class="form-group">
-            <label asp-for="DatumKreiranja" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="DatumKreiranja" class="form-control" />
-                <span asp-validation-for="DatumKreiranja" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="DatumAzuriranja" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="DatumAzuriranja" class="form-control" />
-                <span asp-validation-for="DatumAzuriranja" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
             <label asp-for="ZaposlenikId" class="control-label col-md-2"></label>
             <div class="col-md-10">
                 <select asp-for="ZaposlenikId" class="form-control" asp-items="ViewBag.ZaposlenikId"></select>
@@ -48,24 +34,67 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Godina" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Godina" class="form-control" />
-                <span asp-validation-for="Godina" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+                <button class="btn btn-default stavka" type="button">Dodaj stavku</button>
             </div>
         </div>
     </div>
 </form>
 
+<h4>Stavke</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Proizvod
+            </th>
+            <th>
+                Opis
+            </th>
+            <th>
+                Koli&#269;ina
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.StavkaDokumenta)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proizvod.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proizvod.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kolicina)
+                </td>
+                <td>
+                    <a asp-action="DeleteStavka" asp-route-id="@item.Id" asp-route-akcija="Edit">Obri&#353;i</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <div>
     <a asp-action="Index">Povratak na popis</a>
 </div>
 
+<div id="modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog"></div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+            $(function () {
+                $(".stavka").click(function () {
+                    $("#modal-container").load("/Dokument/StavkaModalAction/@Model.Id", function () {
+                        $("#modal-container").modal();
+                    })
+                });
+            })
+    </script>
 }

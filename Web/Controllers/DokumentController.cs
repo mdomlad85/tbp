@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web.Models;
+using Web.Processors;
 
 namespace Web.Controllers
 {
@@ -38,6 +39,7 @@ namespace Web.Controllers
                 .Include(d => d.Vrsta)
                 .Include(d => d.Zaposlenik)
                 .Include(d => d.StavkaDokumenta)
+                .Include("StavkaDokumenta.Proizvod")
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (dokument == null)
             {
@@ -83,7 +85,10 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var dokument = await _context.Dokument.SingleOrDefaultAsync(m => m.Id == id);
+            var dokument = await _context.Dokument
+                .Include(m => m.StavkaDokumenta)
+                .Include("StavkaDokumenta.Proizvod")
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (dokument == null)
             {
                 return NotFound();
@@ -110,6 +115,7 @@ namespace Web.Controllers
             {
                 try
                 {
+                    dokument.DatumAzuriranja = DateTime.Now;
                     _context.Update(dokument);
                     await _context.SaveChangesAsync();
                 }
@@ -164,9 +170,43 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> DeleteStavka(int id)
+        {
+            var stavkaDokumenta = await _context.StavkaDokumenta.SingleOrDefaultAsync(m => m.Id == id);
+            var dokumentId = stavkaDokumenta.DokumentId;
+            _context.StavkaDokumenta.Remove(stavkaDokumenta);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Edit", new { id = dokumentId });
+        }
+
         private bool DokumentExists(int id)
         {
             return _context.Dokument.Any(e => e.Id == id);
+        }
+
+        public ActionResult StavkaModalAction(int Id)
+        {
+            ViewData["Proizvodi"] = new SelectList(_context.Proizvod, "Id", "Naziv");
+            var stavkaDokumenta = new StavkaDokumenta();
+            stavkaDokumenta.DokumentId = Id;
+            return PartialView("StavkaDokumenta", stavkaDokumenta);
+        }
+
+        public async Task<IActionResult> DodajStavku([Bind("DokumentId,ProizvodId,Kolicina")] StavkaDokumenta stavkaDokumenta)
+        {
+            if (ModelState.IsValid )
+            {
+                _context.StavkaDokumenta.Add(stavkaDokumenta);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Edit", new { id = stavkaDokumenta.DokumentId });
+        }
+
+        public async Task<IActionResult> GenerirajNarudzbenicu()
+        {
+            return RedirectToAction("Edit", new {
+                id = await DokumentProcessor.GenerirajNarudžbenicu(_context)
+            });
         }
     }
 }

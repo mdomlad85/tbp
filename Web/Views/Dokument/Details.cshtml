@@ -46,19 +46,48 @@
         <dd>
             @Html.DisplayFor(model => model.Zaposlenik.Ime)
         </dd>
-        
-        @foreach (var stavka in Model.StavkaDokumenta)
-        {
-            <dt>
-                @Html.DisplayNameFor(model => stavka.Proizvod.Naziv)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => stavka.Proizvod.Naziv)
-            </dd>
-
-        }
     </dl>
 </div>
+
+
+
+<h4>Stavke</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Proizvod
+            </th>
+            <th>
+                Opis
+            </th>
+            <th>
+                Koli&#269;ina
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.StavkaDokumenta)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proizvod.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proizvod.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kolicina)
+                </td>
+                <td>
+                    <a asp-action="DeleteStavka" asp-route-id="@item.Id" asp-route-akcija="Edit">Obri&#353;i</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Uredi</a> |
     <a asp-action="Index">Povratak na popis</a>

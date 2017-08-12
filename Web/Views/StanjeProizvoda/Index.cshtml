@@ -1,0 +1,58 @@
+@model IEnumerable<Web.Models.StanjeProizvoda>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Popis</h2>
+
+<p>
+    <a asp-action="Create">Napravi</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaksimalnaKolicina)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MinimalnaKolicina)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Stanje)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JedinicaMjere)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proizvod)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaksimalnaKolicina)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinimalnaKolicina)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stanje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JedinicaMjere.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proizvod.Naziv)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Vi&#353;e...</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

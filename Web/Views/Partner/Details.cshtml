@@ -24,6 +24,51 @@
         </dd>
     </dl>
 </div>
+
+<h4>Kontak info</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Adresa
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Telefon
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PartnerKontakt)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kontakt.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kontakt.Adresa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kontakt.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kontakt.Telefon)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-controller="Kontakt" asp-route-id="@item.KontaktId" asp-route-akcija="Details">Obri&#353;i</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Uredi</a> |
     <a asp-action="Index">Povratak na popis</a>
