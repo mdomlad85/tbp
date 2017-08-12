@@ -67,6 +67,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                dokument.DatumKreiranja = DateTime.Now;
+                dokument.DatumAzuriranja = DateTime.Now;
                 _context.Add(dokument);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -86,6 +88,7 @@ namespace Web.Controllers
             }
 
             var dokument = await _context.Dokument
+                .Include(m => m.Vrsta)
                 .Include(m => m.StavkaDokumenta)
                 .Include("StavkaDokumenta.Proizvod")
                 .SingleOrDefaultAsync(m => m.Id == id);
@@ -93,8 +96,9 @@ namespace Web.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["Narudzbenica"] = "Narudžbenica";
             ViewData["StatusId"] = new SelectList(_context.StatusDokumenta, "Id", "Naziv", dokument.StatusId);
-            ViewData["VrstaId"] = new SelectList(_context.VrstaDokumenta, "Id", "Naziv", dokument.VrstaId);
             ViewData["ZaposlenikId"] = new SelectList(_context.Zaposlenik, "Id", "Ime", dokument.ZaposlenikId);
             return View(dokument);
         }
@@ -133,7 +137,6 @@ namespace Web.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["StatusId"] = new SelectList(_context.StatusDokumenta, "Id", "Naziv", dokument.StatusId);
-            ViewData["VrstaId"] = new SelectList(_context.VrstaDokumenta, "Id", "Naziv", dokument.VrstaId);
             ViewData["ZaposlenikId"] = new SelectList(_context.Zaposlenik, "Id", "Ime", dokument.ZaposlenikId);
             return View(dokument);
         }
@@ -206,6 +209,14 @@ namespace Web.Controllers
         {
             return RedirectToAction("Edit", new {
                 id = await DokumentProcessor.GenerirajNarudžbenicu(_context)
+            });
+        }
+
+        public async Task<IActionResult> GenerirajPrimkuIzNarudzbenice(int id)
+        {
+            return RedirectToAction("Edit", new
+            {
+                id = await DokumentProcessor.GenerirajPrimkuIzNarudzbenice(_context, id)
             });
         }
     }

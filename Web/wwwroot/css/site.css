@@ -35,3 +35,8 @@ textarea {
         display: none;
     }
 }
+
+.form-text {
+    padding-top: 6px;
+    padding-left: 30px;
+}

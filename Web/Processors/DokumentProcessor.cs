@@ -40,5 +40,41 @@ namespace Web.Processors
 
             return dokument.Id;
         }
+
+        public static async Task<int> GenerirajPrimkuIzNarudzbenice(tbpfoiContext context, int id)
+        {
+            Dokument editDok = await context.Dokument
+                .Include(m => m.StavkaDokumenta)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (editDok == null)
+            {
+                return -1;
+            }
+
+            Dokument dokument = new Dokument();
+            dokument.ZaposlenikId = editDok.ZaposlenikId;
+            dokument.StatusId = context.StatusDokumenta.First().Id;
+            dokument.VrstaId = context.VrstaDokumenta.Single(x => x.Naziv == "Primka").Id;
+            dokument.DatumKreiranja = DateTime.Now;
+            dokument.DatumAzuriranja = DateTime.Now;
+
+            context.Dokument.Add(dokument);
+            await context.SaveChangesAsync();
+
+            foreach (var item in editDok.StavkaDokumenta)
+            {
+                context.StavkaDokumenta.Add(new StavkaDokumenta
+                {
+                    ProizvodId = item.ProizvodId,
+                    Kolicina = item.Kolicina,
+                    DokumentId = dokument.Id
+                });
+            }
+
+            await context.SaveChangesAsync();
+
+            return dokument.Id;
+        }
     }
 }
