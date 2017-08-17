@@ -1,0 +1,27 @@
+\BOOKMARK [0][-]{chapter.1}{1 Uvod}{}% 1
+\BOOKMARK [0][-]{chapter.2}{2 Opis aplikacijske domene}{}% 2
+\BOOKMARK [1][-]{section.2.1}{2.1 Proizvod}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{2.2 Zaposlenik}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{2.3 Dokument}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.4}{2.4 Partner}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.5}{2.5 Stanje Proizvoda}{chapter.2}% 7
+\BOOKMARK [0][-]{chapter.3}{3 Teorijski uvod}{}% 8
+\BOOKMARK [1][-]{section.3.1}{3.1 Aktivna baza podataka}{chapter.3}% 9
+\BOOKMARK [1][-]{section.3.2}{3.2 Temporalne baze podataka}{chapter.3}% 10
+\BOOKMARK [0][-]{chapter.4}{4 Model baze podataka}{}% 11
+\BOOKMARK [1][-]{section.4.1}{4.1 Proizvod}{chapter.4}% 12
+\BOOKMARK [1][-]{section.4.2}{4.2 Dokument}{chapter.4}% 13
+\BOOKMARK [1][-]{section.4.3}{4.3 Zaposlenik}{chapter.4}% 14
+\BOOKMARK [1][-]{section.4.4}{4.4 Partner}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.5}{4.5 Stanje Proizvoda}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.6}{4.6 Stavka Dokumenta}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.7}{4.7 Kontakt}{chapter.4}% 18
+\BOOKMARK [1][-]{section.4.8}{4.8 \227ifrarnici}{chapter.4}% 19
+\BOOKMARK [0][-]{chapter.5}{5 Implementacija}{}% 20
+\BOOKMARK [1][-]{section.5.1}{5.1 Kreiranje sheme baze podataka}{chapter.5}% 21
+\BOOKMARK [0][-]{chapter.6}{6 Primjeri kori\235tenja}{}% 22
+\BOOKMARK [1][-]{section.6.1}{6.1 \227ifrarnici}{chapter.6}% 23
+\BOOKMARK [1][-]{section.6.2}{6.2 Maticni podaci}{chapter.6}% 24
+\BOOKMARK [1][-]{section.6.3}{6.3 Obrada dokumenata}{chapter.6}% 25
+\BOOKMARK [0][-]{chapter.7}{7 Zakljucak}{}% 26
+\BOOKMARK [0][-]{chapter.7}{Bibliografija}{}% 27
