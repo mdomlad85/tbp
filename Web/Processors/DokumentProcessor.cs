@@ -9,7 +9,7 @@ namespace Web.Processors
 {
     public class DokumentProcessor
     {
-        public static async Task<int> GenerirajNarudžbenicu(tbpfoiContext context)
+        public static async Task<int> GenerirajNarudzbenicu(tbpfoiContext context)
         {
             Dokument dokument = new Dokument();
             dokument.ZaposlenikId = context.Zaposlenik.First().Id;

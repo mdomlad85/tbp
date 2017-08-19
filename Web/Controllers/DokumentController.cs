@@ -208,7 +208,7 @@ namespace Web.Controllers
         public async Task<IActionResult> GenerirajNarudzbenicu()
         {
             return RedirectToAction("Edit", new {
-                id = await DokumentProcessor.GenerirajNarudžbenicu(_context)
+                id = await DokumentProcessor.GenerirajNarudzbenicu(_context)
             });
         }
 
